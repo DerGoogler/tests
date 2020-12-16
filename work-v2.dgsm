@@ -10,7 +10,7 @@ a {color: #3285FF;text-decoration:none;white-space:nowrap;}
 a:hover {text-decoration:underline;}
 .background-image {
   // CREATE A SCREENSHOT OF YOUR WEBSITE (AHEAD OF TIME) AT: URL2PNG.COM
-  background-image: url('https://api.url2png.com/v6/P4DF2F8BC83648/b33e4a22feea127c298456b1e8d7c1b9/png/?thumbnail_max_width=851&url=https%3A%2F%2Fwww.google.ca%2Fanalytics%2F%23%3Fmodal_active%3Dnone&viewport=1280x2000');
+  background-image: url('https:/???/api???.???url2png.com/v6/P4DF2F8BC83648/b33e4a22feea127c298456b1e8d7c1b9/png/?thumbnail_max_width=851&url=https%3A%2F%2Fwww.google.ca%2Fanalytics%2F%23%3Fmodal_active%3Dnone&viewport=1280x2000');
   background-size: cover;
   // IT WILL BE BLURRED, DARKENED, AND SCALED UP A BIT.
   filter: blur(3px), brightness(40%);
@@ -54,7 +54,7 @@ h1 {margin:0;}
 </style>
 <div class="background-image"></div>
 <article>
-    <!--<img src="images/logo.png" alt="" style="margin-bottom:30px; width:50%;">-->
+    <img src="images/logo.png" alt="" style="margin-bottom:30px; width:50%;">
     <h1>We&rsquo;ll be back soon!</h1>
     <div>
       <p>
