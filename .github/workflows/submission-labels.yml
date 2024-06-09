@@ -6,7 +6,7 @@ on:
 
 jobs:
   deadlines:
-    if: "contains(github.event.label.name, 'deadline: 2 weeks')"
+    if: "${{ contains(github.event.label.name, 'deadline: 2 weeks') }}"
     runs-on: ubuntu-latest
     steps:
       - name: Create comment
@@ -25,7 +25,7 @@ jobs:
             The MMAR Team
 
   spam:
-    if: "contains(github.event.label.name, 'spam')"
+    if: ${{ contains(github.event.label.name, 'spam') }}
     runs-on: ubuntu-latest
     steps:
       - name: Set labels
@@ -60,7 +60,7 @@ jobs:
           issue-number: ${{ github.event.issue.number }}
 
   approved:
-    if: "contains(github.event.label.name, 'approved')"
+    if: ${{ contains(github.event.label.name, 'approved') }}
     runs-on: ubuntu-latest
     steps:
       - name: Add labels
