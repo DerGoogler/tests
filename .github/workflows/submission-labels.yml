@@ -74,7 +74,7 @@ jobs:
       - name: Format Module ID
         id: app_mod_name
         run: |
-          echo "MODULE_ID= ${SUB_TITLE//\[Module\]?(\s)/}" >> $GITHUB_OUTPUT
+          echo "MODULE_ID=${SUB_TITLE//\[Module\]?(\s)/}" >> $GITHUB_OUTPUT
         env:
           SUB_TITLE: ${{ github.event.issue.title }}
 
