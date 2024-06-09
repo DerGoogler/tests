@@ -71,16 +71,15 @@ jobs:
           issue-number: ${{ github.event.issue.number }}
           labels: "approved"
 
-      - name: Create comment
-        uses: actions-cool/issues-helper@v3
-
+      - name: Format Module ID
         id: app_mod_name
-
         run: |
-           echo "MODULE_ID= ${SUB_TITLE//\[Module\]/}" >> $GITHUB_OUTPUT
+          echo "MODULE_ID= ${SUB_TITLE//\[Module\]/}" >> $GITHUB_OUTPUT
         env:
           SUB_TITLE: ${{ github.event.issue.title }}
 
+      - name: Create comment
+        uses: actions-cool/issues-helper@v3
         with:
           actions: 'create-comment'
           token: ${{ secrets.GITHUB_TOKEN }}
