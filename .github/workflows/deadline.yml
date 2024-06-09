@@ -1,4 +1,4 @@
-name: Close Issues with "deadline: 2 weeks" Label
+name: "Close Issues with \"deadline: 2 weeks\" Label"
 
 on:
   schedule:
@@ -12,7 +12,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Close issues with "deadline: 2 weeks" label
+      - name: "Close issues with \"deadline: 2 weeks\" label"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
