@@ -5,7 +5,7 @@ on:
     types: [opened]
 
 jobs:
-  always:
+  submission-check:
     if: ${{ startsWith(github.event.issue.title, '[Module]') != 'true' }}
     runs-on: ubuntu-latest
     steps:
