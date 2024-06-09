@@ -6,7 +6,7 @@ on:
 
 jobs:
   submission-check:
-    if: ${{ !startsWith(github.event.issue.title, '[Module]') }}
+    if: ${{ !startsWith(github.event.issue.title, '[Module]') || contains(github.event.issue.title, '') }}
     runs-on: ubuntu-latest
     steps:
       - name: Create comment
@@ -18,7 +18,7 @@ jobs:
           body: |
             Hey @${{ github.event.issue.user.login }},
 
-            your module submission is invalid, a submission should start with `[Module] <module_id>`.
+            your module submission is invalid, a submission should start with `[Module] <module_id>` and the submission content cannot be empty.
             Feel free to re-submit your module with the correct submission title.
 
 

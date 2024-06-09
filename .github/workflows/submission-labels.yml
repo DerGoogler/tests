@@ -89,7 +89,7 @@ jobs:
 
             your module submission has been approved! Your module will be likly available at https://github.com/${{ github.repository_owner }}/${{ steps.app_mod_name.outputs.MODULE_ID }}.
             
-            Also please check your inbox for an invition :blush:.
+            Also please check your inbox for an invitation :blush:.
 
 
             Rest regards,
@@ -101,4 +101,24 @@ jobs:
           actions: 'close-issue'
           token: ${{ secrets.GITHUB_TOKEN }}
           close-reason: completed
+          issue-number: ${{ github.event.issue.number }}
+  
+  rejected:
+    if: ${{ contains(github.event.label.name, 'rejected') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add labels
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: 'add-labels'
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.issue.number }}
+          labels: "rejected"
+
+      - name: Close issue
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: 'close-issue'
+          token: ${{ secrets.GITHUB_TOKEN }}
+          close-reason: not_planned
           issue-number: ${{ github.event.issue.number }}
