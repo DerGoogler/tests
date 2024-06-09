@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check right submission
-        uses: actions-cool/issues-helper@v2
+        uses: actions-cool/issues-helper@v3
         with:
           actions: 'check-issue'
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -17,7 +17,7 @@ jobs:
           title-includes: '[Module] '
 
       - name: Create comment
-        uses: actions-cool/issues-helper@v2
+        uses: actions-cool/issues-helper@v3
         with:
           actions: 'create-comment'
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -25,7 +25,7 @@ jobs:
           body: |
             Hey @${{ github.event.issue.user.login }},
 
-            your module submission is invalid, a submission should start with `[MODULE] <module_id>`.
+            your module submission is invalid, a submission should start with `[Module] <module_id>`.
             Feel free to re-submit your module with the correct submission title.
 
 
@@ -33,7 +33,7 @@ jobs:
             The MMAR Team
 
       - name: Set labels
-        uses: actions-cool/issues-helper@v2
+        uses: actions-cool/issues-helper@v3
         with:
           actions: 'set-labels'
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -41,7 +41,7 @@ jobs:
           labels: 'invalid'
 
       - name: Close submission
-        uses: actions-cool/issues-helper@v2
+        uses: actions-cool/issues-helper@v3
         with:
           actions: 'close-issue'
           close-reason: not_planned
