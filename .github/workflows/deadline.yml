@@ -1,16 +1,16 @@
-name: "Comment on \"deadline: 2 weeks\" label"
+name: Submission Comment Bot
 
 on:
   issues:
     types: [labeled]
 
 jobs:
-  comment:
+  check_deadlines:
     if: "contains(github.event.label.name, 'deadline: 2 weeks')"
     runs-on: ubuntu-latest
 
     steps:
-    - name: Post comment
+    - name: "Post comment on label with \"deadline: 2 weeks\""
       uses: peter-evans/create-or-update-comment@v3
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
@@ -22,3 +22,14 @@ jobs:
 
           Rest regards,
           The MMAR Team
+
+  check_spam:
+    if: "contains(github.event.label.name, 'spam')"
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Close spam submission
+      run: |
+        gh issue close ${{ github.event.issue.number }} --reason "not planned" --comment "Submisson rejected due spam."
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
