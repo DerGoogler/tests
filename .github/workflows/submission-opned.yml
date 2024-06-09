@@ -6,19 +6,10 @@ on:
 
 jobs:
   always:
+    if: startsWith(github.event.issue.title, '[Module] ') != 'true'
     runs-on: ubuntu-latest
     steps:
-      - name: Check right submission
-        uses: actions-cool/issues-helper@v3
-        id: checked_sub
-        with:
-          actions: 'check-issue'
-          token: ${{ secrets.GITHUB_TOKEN }}
-          issue-number: ${{ github.event.issue.number }}
-          title-includes: '[Module] '
-
       - name: Create comment
-        if: steps.checked_sub.outputs.check-result != 'true'
         uses: actions-cool/issues-helper@v3
         with:
           actions: 'create-comment'
@@ -35,7 +26,6 @@ jobs:
             The MMAR Team
 
       - name: Set labels
-        if: steps.checked_sub.outputs.check-result != 'true'
         uses: actions-cool/issues-helper@v3
         with:
           actions: 'set-labels'
@@ -44,7 +34,6 @@ jobs:
           labels: 'invalid'
 
       - name: Close submission
-        if: steps.checked_sub.outputs.check-result != 'true'
         uses: actions-cool/issues-helper@v3
         with:
           actions: 'close-issue'
