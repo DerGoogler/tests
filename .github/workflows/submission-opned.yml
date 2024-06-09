@@ -1,0 +1,49 @@
+name: Submission Comment Bot
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  always:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check right submission
+        uses: actions-cool/issues-helper@v2
+        with:
+          actions: 'check-issue'
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.issue.number }}
+          title-includes: '[Module] '
+
+      - name: Create comment
+        uses: actions-cool/issues-helper@v2
+        with:
+          actions: 'create-comment'
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            Hey @${{ github.event.issue.user.login }},
+
+            your module submission is invalid, a submission should start with `[MODULE] <module_id>`.
+            Feel free to re-submit your module with the correct submission title.
+
+
+            Rest regards,
+            The MMAR Team
+
+      - name: Set labels
+        uses: actions-cool/issues-helper@v2
+        with:
+          actions: 'set-labels'
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.issue.number }}
+          labels: 'invalid'
+
+      - name: Close submission
+        uses: actions-cool/issues-helper@v2
+        with:
+          actions: 'close-issue'
+          close-reason: not_planned
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.issue.number }}
