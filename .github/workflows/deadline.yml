@@ -1,4 +1,5 @@
-name: Comment on "deadline; 2 weeks" label
+name: |
+  Comment on "deadline: 2 weeks" label
 
 on:
   issues:
@@ -6,7 +7,8 @@ on:
 
 jobs:
   comment:
-    if: contains(github.event.label.name, "deadline; 2 weeks")
+    if: |
+      contains(github.event.label.name, "deadline: 2 weeks")
     runs-on: ubuntu-latest
 
     steps:
