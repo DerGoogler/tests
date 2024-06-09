@@ -73,6 +73,14 @@ jobs:
 
       - name: Create comment
         uses: actions-cool/issues-helper@v3
+
+        id: app_mod_name
+
+        run: |
+           echo "MODULE_ID= ${SUB_TITLE//\[Module\]/}" >> $GITHUB_OUTPUT
+        env:
+          SUB_TITLE: ${{ github.event.issue.title }}
+
         with:
           actions: 'create-comment'
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -80,7 +88,9 @@ jobs:
           body: |
             Hey @${{ github.event.issue.user.login }},
 
-            your module submission has been approved! Please check your inbox for an invite
+            your module submission has been approved! Your module will be likly available at https://github.com/${{ github.repository_owner }}/${{ steps.app_mod_name.outputs.MODULE_ID }}.
+            
+            Also please check your inbox for an invition :blush:.
 
 
             Rest regards,
