@@ -56,8 +56,8 @@ body:
         - **Ads** — advertising
         - **Tracking** — tracks and/or reports your activity to somewhere, even when it can be turned off
         - **Non-Free Network Services** — promotes or depends entirely on a non-changeable or non-free network service
-        - **Non-Free Addons** — promotes other non-libre apps or plugins
-        - **Non-Free Dependencies** — needs a non-libre app to work (e.g. Google Maps, Market)
+        - **Non-Free Addons** — promotes other non-libre module or plugins
+        - **Non-Free Dependencies** — needs a non-libre module to work (e.g. Google Maps, Market)
         - **NSFW** — contains content that the user may not want to be publicized or visible everywhere
         - **Upstream Non-Free** — upstream source code is not libre, and this version has those parts replaced or rewritten
         - **Non-Free Assets** — non-libre media in things that are not code (e.g. images, sound, music, 3D-models, or video)
