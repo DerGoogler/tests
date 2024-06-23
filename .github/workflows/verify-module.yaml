@@ -1,12 +1,6 @@
 # Workflow File
 name: Publish Extension
 on:
-  push:
-    branches: ["main"]
-
-  pull_request:
-    branches: ["main"]
-
   workflow_dispatch:
     inputs:
       repo_name:
