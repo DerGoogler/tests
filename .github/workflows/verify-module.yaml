@@ -10,7 +10,7 @@ on:
       verified:
         type: boolean
         description: "Verify module"
-        required: false
+        required: true
         default: false
 
 permissions:
