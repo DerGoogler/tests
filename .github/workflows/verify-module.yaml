@@ -4,11 +4,13 @@ on:
   workflow_dispatch:
     inputs:
       repo_name:
+        required: true
         description: "Repo Name (Internal only)"
   
-      preRelease:
+      verified:
         type: boolean
-        required: true
+        description: "Verify module"
+        required: false
         default: false
 
 permissions:
@@ -33,6 +35,13 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{ github.ref }}
+
+      - name: Update my-file.json description
+        uses: jossef/action-set-json-field@v2.1
+        with:
+          file: my-file.json
+          field: verified
+          value: my custom data
 
       - name: Test
         run: |
