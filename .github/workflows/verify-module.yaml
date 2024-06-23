@@ -1,0 +1,47 @@
+# Workflow File
+name: Publish Extension
+on:
+  push:
+    branches: ["main"]
+
+  pull_request:
+    branches: ["main"]
+
+  workflow_dispatch:
+    inputs:
+      repo_name:
+        description: "Repo Name (Internal only)"
+  
+      preRelease:
+        type: boolean
+        required: true
+        default: false
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+env:
+  IS_SYNC: ${{ github.event_name == 'schedule' || startsWith(github.event.head_commit.message, '[sync]') }}
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Test
+        run: |
+          echo "repo_name: ${{ github.event.inputs.repo_name }}"
+          echo "preRelease: ${{ github.event.inputs.repo_name }}"
+
