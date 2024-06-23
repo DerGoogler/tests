@@ -10,7 +10,6 @@ on:
       verified:
         type: boolean
         description: "Verify module"
-        required: true
         default: false
 
 permissions:
@@ -39,12 +38,7 @@ jobs:
       - name: Update my-file.json description
         uses: jossef/action-set-json-field@v2.1
         with:
-          file: my-file.json
+          file: modules/${{ github.event.inputs.repo_name }}/track.json
           field: verified
-          value: my custom data
-
-      - name: Test
-        run: |
-          echo "repo_name: ${{ github.event.inputs.repo_name }}"
-          echo "preRelease: ${{ github.event.inputs.repo_name }}"
+          value: ${{ github.event.inputs.verified }}
 
