@@ -68,8 +68,8 @@ body:
         - **UnaskedRemoval** — module removes app, permissions and other modules without approval
       multiple: true
       options:
-        - <li>Advertising (Ads)</li>
-        - <li>Known Vulnerability (KnownVuln)</li>
+        - "`Advertising (Ads)`"
+        - "`Known Vulnerability (KnownVuln)`"
         - NSFW (NSFW)
         - No Source Since (NoSourceSince)
         - Non-Free Addons (NonFreeAdd)
