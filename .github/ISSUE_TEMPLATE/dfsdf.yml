@@ -4,7 +4,7 @@ title: '[Module] module_id'
 body:
   - type: markdown
     attributes:
-      value: >
+      value: |
         ## Please read
 
         - ID must match the id in module.prop
@@ -52,23 +52,20 @@ body:
     id: antifeatures
     attributes:
       label: Anti-Features
-      description: >-
-        - **Ads** — advertising - **Tracking** — tracks and/or reports your
-        activity to somewhere, even when it can be turned off - **Non-Free
-        Network Services** — promotes or depends entirely on a non-changeable or
-        non-free network service - **Non-Free Addons** — promotes other
-        non-libre apps or plugins - **Non-Free Dependencies** — needs a
-        non-libre app to work (e.g. Google Maps, Market) - **NSFW** — contains
-        content that the user may not want to be publicized or visible
-        everywhere - **Upstream Non-Free** — upstream source code is not libre,
-        and this version has those parts replaced or rewritten - **Non-Free
-        Assets** — non-libre media in things that are not code (e.g. images,
-        sound, music, 3D-models, or video) - **Known Vulnerability** — known
-        security vulnerability - **Disabled Algorithm** — signed using an unsafe
-        algorithm - **No Source Since** — source code no longer available,
-        making new releases impossible - **Obfuscation** — module includes
-        obfuscated code - **UnaskedRemoval** — module removes app, permissions
-        and other modules without approval
+      description: |
+        - **Ads** — advertising
+        - **Tracking** — tracks and/or reports your activity to somewhere, even when it can be turned off
+        - **Non-Free Network Services** — promotes or depends entirely on a non-changeable or non-free network service
+        - **Non-Free Addons** — promotes other non-libre apps or plugins
+        - **Non-Free Dependencies** — needs a non-libre app to work (e.g. Google Maps, Market)
+        - **NSFW** — contains content that the user may not want to be publicized or visible everywhere
+        - **Upstream Non-Free** — upstream source code is not libre, and this version has those parts replaced or rewritten
+        - **Non-Free Assets** — non-libre media in things that are not code (e.g. images, sound, music, 3D-models, or video)
+        - **Known Vulnerability** — known security vulnerability
+        - **Disabled Algorithm** — signed using an unsafe algorithm
+        - **No Source Since** — source code no longer available, making new releases impossible
+        - **Obfuscation** — module includes obfuscated code
+        - **UnaskedRemoval** — module removes app, permissions and other modules without approval
       multiple: true
       options:
         - Advertising (Ads)
@@ -83,8 +80,3 @@ body:
         - Upstream Non-Free(UpstreamNonFree)
         - Obfuscation (Obfuscation)
         - Unasked removal (UnaskedRemoval)
-  - type: markdown
-    attributes:
-      value: >-
-        This template was generated with [Issue Forms
-        Creator](https://issue-forms-creator.netlify.app)
