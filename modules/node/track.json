@@ -1,7 +1,7 @@
 {
   "id": "node",
   "enable": true,
-  "verified": "false",
+  "verified": "true",
   "update_to": "https://github.com/Magisk-Modules-Alt-Repo/node.git",
   "license": "MIT",
   "source": "https://github.com/Magisk-Modules-Alt-Repo/node.git",
