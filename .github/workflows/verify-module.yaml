@@ -51,5 +51,5 @@ jobs:
         if: ${{ (github.event.inputs.repo_name != '') }}
         run: |
           git add modules
-          git commit -sm "[VERIFICATION] ${{ github.event.inputs.repo_name }}" -m "Added by @${{ github.actor.login }}" || true
+          git commit -sm "[VERIFICATION] ${{ github.event.inputs.repo_name }}" -m "Added by @${{ github.actor }}" || true
           git push || true
