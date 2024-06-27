@@ -3,7 +3,7 @@ description: Template for bug reports
 title: '[Bug] '
 labels: bug
 body:
-   - type: markdown
+  - type: markdown
     attributes:
       value: |
         # General
