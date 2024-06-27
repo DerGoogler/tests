@@ -9,7 +9,7 @@ body:
         
         You should read our <a target="_blank" href="https://github.com/Magisk-Modules-Alt-Repo/submission#general-guidelines">General Guidelines</a> and <a target="_blank" href="https://github.com/Magisk-Modules-Alt-Repo/submission#source-code-guidelines">Source Code Guidelines</a> before you submit your module 
 
-        > If your module includes non-free dependencies or something else, please check <a target="_blank" href="https://github.com/Magisk-Modules-Alt-Repo/submission#anti-features">Anti-Fetures</a> before you submit your module
+        > If your module includes non-free dependencies or something else, please check <a target="_blank" href="https://github.com/Magisk-Modules-Alt-Repo/submission#anti-features">Anti-Features</a> before you submit your module
 
         **Quick guidelines:**
         - ID must match the id in module.prop
