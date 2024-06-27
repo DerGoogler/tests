@@ -6,15 +6,16 @@ body:
     attributes:
       value: |
         ## Please read
+        
+        You should read our <a target="_blank" href="https://github.com/Magisk-Modules-Alt-Repo/submission#general-guidelines">General Guidelines</a> and <a target="_blank" href="https://github.com/Magisk-Modules-Alt-Repo/submission#source-code-guidelines">Source Code Guidelines</a> before you submit your module 
 
+        > If your module includes non-free dependencies or something else, please check <a target="_blank" href="https://github.com/Magisk-Modules-Alt-Repo/submission#anti-features">Anti-Fetures</a> before you submit your module
+
+        **Quick guidelines:**
         - ID must match the id in module.prop
-
-        - Once approved, your module will be added to our repo as
-        http://github.com/magisk-modules-alt-repo/example_module
-
-        - Read all requirements before submit for approval:
-          - https://github.com/Magisk-Modules-Alt-Repo/submission#source-code-guidelines
-          - https://github.com/Magisk-Modules-Alt-Repo/submission#general-guidelines
+        - Title must include the module id — like `[Module] example_module`. The bot will reject the module when not
+        - Once approved, your module will be added to our repo as https://github.com/Magisk-Modules-Alt-Repo/example_module
+        
   - type: input
     id: module-id
     attributes:
@@ -52,20 +53,7 @@ body:
     id: antifeatures
     attributes:
       label: Anti-Features
-      description: |
-        - **Ads** — advertising
-        - **Tracking** — tracks and/or reports your activity to somewhere, even when it can be turned off
-        - **Non-Free Network Services** — promotes or depends entirely on a non-changeable or non-free network service
-        - **Non-Free Addons** — promotes other non-libre module or plugins
-        - **Non-Free Dependencies** — needs a non-libre module to work (e.g. Google Maps, Market)
-        - **NSFW** — contains content that the user may not want to be publicized or visible everywhere
-        - **Upstream Non-Free** — upstream source code is not libre, and this version has those parts replaced or rewritten
-        - **Non-Free Assets** — non-libre media in things that are not code (e.g. images, sound, music, 3D-models, or video)
-        - **Known Vulnerability** — known security vulnerability
-        - **Disabled Algorithm** — signed using an unsafe algorithm
-        - **No Source Since** — source code no longer available, making new releases impossible
-        - **Obfuscation** — module includes obfuscated code
-        - **UnaskedRemoval** — module removes app, permissions and other modules without approval
+      description: Only apply if your module has one of these
       multiple: true
       options:
         - Advertising (Ads)
