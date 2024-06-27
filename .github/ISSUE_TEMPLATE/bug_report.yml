@@ -3,6 +3,10 @@ description: Template for bug reports
 title: '[Bug] '
 labels: bug
 body:
+   - type: markdown
+    attributes:
+      value: |
+        # General
   - type: textarea
     id: reproduce_steps
     attributes:
@@ -35,7 +39,10 @@ body:
     attributes:
       label: Logs
       description: |
-        Use `logcat --pid=\\`pidof -s PACKAGENAME\\` -v color` to gather logs
+        To gather log use:
+        ```shell
+        logcat --pid=`pidof -s PACKAGENAME` -v color
+        ```
       render: logs
   - type: markdown
     attributes:
