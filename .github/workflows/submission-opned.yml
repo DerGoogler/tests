@@ -6,7 +6,7 @@ on:
 
 jobs:
   submission-check:
-    if: ${{ !startsWith(github.event.issue.title, '[Module]') || github.event.issue.title == '[Module]' || !github.event.issue.title == '[Moderator]' }}
+    if: ${{ !startsWith(github.event.issue.title, '[Module]') || github.event.issue.title == '[Module]' || github.event.issue.title == '[Module] ' || !github.event.issue.title == '[Moderator]' }}
     runs-on: ubuntu-latest
     steps:
       - name: Create comment
