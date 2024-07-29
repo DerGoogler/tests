@@ -60,7 +60,7 @@ jobs:
           issue-number: ${{ github.event.issue.number }}
 
   approved:
-    if: ${{ contains(github.event.label.name, 'approved') }}
+    if: ${{ startsWith(github.event.issue.title, '[Module]') && contains(github.event.label.name, 'approved') }}
     runs-on: ubuntu-latest
     steps:
       - name: Add labels
