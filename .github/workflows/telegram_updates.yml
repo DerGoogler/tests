@@ -35,7 +35,6 @@ jobs:
         run: python tg.py
 
       - name: Commit Last Versions
-        if: ${{ github.event.inputs.repo_name != '' }}
         run: |
           git add json/last_versions.json
           git commit -sm "Update Latest Versions" || true
