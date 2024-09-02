@@ -8,8 +8,6 @@ import os
 TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
 TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID')
 
-bot = Bot(token=TELEGRAM_BOT_TOKEN)
-
 main_data = {}
 with open('json/modules.json') as f:
     main_data = json.load(f)
