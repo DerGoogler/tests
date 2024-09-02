@@ -34,7 +34,7 @@ jobs:
           TELEGRAM_CHAT_ID: "@MagiskModulesAltRepo"
         run: python tg.py
 
-      - name: Commit module
+      - name: Commit Last Versions
         if: ${{ github.event.inputs.repo_name != '' }}
         run: |
           git add json/last_versions.json
