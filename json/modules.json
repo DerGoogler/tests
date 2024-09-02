@@ -4335,7 +4335,7 @@
         "id": "node_on_android",
         "name": "Systemless Node.js",
         "version": "1.6.6",
-        "versionCode": 168,
+        "versionCode": 169,
         "author": "Der_Googler",
         "description": "Node.js is a cross-platform, open-source server environment that can run on Windows, Linux, Unix, macOS, and more.",
         "added": 1719068080.044674,
