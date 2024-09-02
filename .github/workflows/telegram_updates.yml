@@ -13,6 +13,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Set up Git
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
@@ -29,15 +34,9 @@ jobs:
           TELEGRAM_CHAT_ID: "@MagiskModulesAltRepo"
         run: python tg.py
 
-      - name: Upload state file
-        if: success()
-        uses: actions/upload-artifact@v3
-        with:
-          name: last-versions
-          path: last_versions.json
-
-      - name: Download state file
-        if: failure()
-        uses: actions/download-artifact@v3
-        with:
-          name: last-versions
+      - name: Commit module
+        if: ${{ github.event.inputs.repo_name != '' }}
+        run: |
+          git add json/last_versions.json
+          git commit -sm "Update Latest Versions" || true
+          git push || true
