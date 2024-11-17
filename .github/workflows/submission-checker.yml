@@ -10,7 +10,7 @@ jobs:
       - name: Validate issue title
         id: validate-title
         run: |
-          if [[ ! "${{ github.event.issue.title }}" =~ ^\[[mM]odule\][[:space:]]*([a-zA-Z][a-zA-Z0-9._-]+)$ ]]; then
+          if [[ ! "${{ github.event.issue.title }}" =~ ^(\[[mM]odule\][[:space:]]*([a-zA-Z][a-zA-Z0-9._-]+)|\[[tT]akedown\][[:space:]]*(.+))$ ]]; then
             echo "valid=false" >> $GITHUB_ENV
           else
             echo "valid=true" >> $GITHUB_ENV
@@ -23,9 +23,8 @@ jobs:
           actions: 'create-comment'
           token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ github.event.issue.number }}
-            # Hey @${{ github.event.issue.user.login }},
           body: |
-            d
+            Hey @${{ github.event.issue.user.login }},
             
             your module submission is invalid. A valid submission title must match the pattern `^\[[mM]odule\][[:space:]]*([a-zA-Z][a-zA-Z0-9._-]+)$` (e.g., `[Module] my-module`), otherwise your module can't added.
             Please update your submission title and try again.
