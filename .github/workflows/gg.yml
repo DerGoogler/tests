@@ -59,7 +59,7 @@ jobs:
 
                 Build on ${{ env.BUILD_DATE }}.
 
-                ```$MESSAGE```
+                ```${{ env.MESSAGE }}```
 
                 Type: ${{ env.BUILD_TYPE_CASED }}
                 [Workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
