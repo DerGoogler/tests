@@ -63,7 +63,7 @@ jobs:
 
                 Type: ${{ env.BUILD_TYPE_CASED }}
                 [Workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
-            files: text.txt
+            files: test.txt
         env:
             API_ID: ${{ secrets.API_ID }}
             API_HASH: ${{ secrets.API_HASH }}
