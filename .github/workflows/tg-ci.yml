@@ -1,0 +1,76 @@
+name: Telegram CI
+
+on:
+    workflow_dispatch:
+        inputs:
+            title:
+              required: false
+              default: '**CI Manager**'
+              description: 'Title'
+            message:
+              required: false
+              default: 'No message.'
+              description: 'Message'
+            send_telegram:
+              description: 'Send to Telegram'
+              required: true
+              default: true
+              type: boolean
+            buildType:
+              description: "Build Type"
+              type: choice
+              required: true
+              default: 'Aplha'
+              options:
+               - 'Release'
+               - 'Playstore'
+               - 'ReleaseCandidate'
+               - 'Beta'
+               - 'Alpha'
+               - 'Debug'
+               - 'DebugMin'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Parse input
+        run: |
+            BUILD_TYPE_CASED=$(echo "${{ inputs.buildType }}" | sed 's/^\(.\)/\L\1/')
+            echo "BUILD_TYPE_CASED=$BUILD_TYPE_CASED" >> $GITHUB_ENV
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+            fetch-depth: 0
+
+      - name: Get commit info and build timestamp
+        id: meta
+        run: |
+            echo "${{ inputs.message }}" > test.txt
+            BUILD_DATE=$(date +"%Y-%m-%d %H:%M:%S")
+            VERSION=$(git rev-list --count HEAD)
+            echo "VERSION=$VERSION" >> $GITHUB_ENV
+            echo "BUILD_DATE=$BUILD_DATE" >> $GITHUB_ENV
+
+      - name: Upload files to Telegram
+        if: github.event.inputs.send_telegram == 'true'
+        uses: xz-dev/TelegramFileUploader@v1.1.1
+        with:
+            to-who: ${{ secrets.TELEGRAM_CHAT_ID }}
+            message: |-
+                ${{ inputs.title }}
+                #ci_${{ env.VERSION }}
+
+                Build on ${{ env.BUILD_DATE }}.
+
+                ${{ inputs.message }}
+
+                Type: ${{ env.BUILD_TYPE_CASED }}
+                [Workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+            files: test.txt
+        env:
+            API_ID: ${{ secrets.API_ID }}
+            API_HASH: ${{ secrets.API_HASH }}
+            BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
