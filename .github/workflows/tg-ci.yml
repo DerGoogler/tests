@@ -64,22 +64,31 @@ jobs:
       - name: Upload files to Telegram
         if: github.event.inputs.send_telegram == 'true'
         run: |
-            python3 scripts/telegram-ci.py \
-              --token "${{ secrets.TELEGRAM_BOT_TOKEN }}" \
-              --channel_id @kaklakaka \
-              --file_path test.txt \
-              --buttons """[
-                {
-                    "text": "View Run",
-                    "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-                }
-              ]""" \
-              --message """${{ inputs.title }}
-            #ci_$VERSION
+          MESSAGE="$(cat <<EOF
+          ${{ inputs.title }}
+          #ci_$VERSION
 
-            Build on $BUILD_DATE.
-                
-            ${{ inputs.message }}
+          Build on $BUILD_DATE.
 
-            Type: $BUILD_TYPE_CASED
-            """
+          ${{ inputs.message }}
+
+          Type: $BUILD_TYPE_CASED
+          EOF
+          )"
+
+          BUTTONS="$(cat <<EOF
+          [
+            {
+              "text": "View Run",
+              "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            }
+          ]
+          EOF
+          )"
+        
+          python3 scripts/telegram-ci.py \
+            --token "${{ secrets.TELEGRAM_BOT_TOKEN }}" \
+            --channel_id @kaklakaka \
+            --file_path test.txt \
+            --buttons "$BUTTONS" \
+            --message "$MESSAGE"
