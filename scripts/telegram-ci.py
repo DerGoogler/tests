@@ -28,9 +28,9 @@ def send_file_with_buttons(channel_id, file_path, buttons_json, message):
         markup.add(button_obj)
 
     with open(file_path, 'rb') as file:
-        bot.send_photo(
+        bot.send_document(
             chat_id=channel_id,
-            photo=file,
+            document=file,
             caption=message,
             reply_markup=markup
         )
