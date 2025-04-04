@@ -1,34 +1,32 @@
 import telebot
 import json
-import os
+import argparse
 
-# Retrieve environment variables
-TOKEN = os.getenv('BOT_TOKEN')
-CHANNEL_ID = os.getenv('CHANNEL_ID')
-FILE_PATH = os.getenv('FILE_PATH')
-JSON_BUTTONS_PATH = os.getenv('BUTTONS_PATH')
-TEXT_MESSAGE_PATH = os.getenv('MESSAGE_PATH')
+# Parse command-line arguments
+parser = argparse.ArgumentParser(description="Send a photo with inline buttons using Telegram bot.")
+parser.add_argument('--token', required=True, help='Telegram Bot Token')
+parser.add_argument('--channel_id', required=True, help='Target Channel ID')
+parser.add_argument('--file_path', required=True, help='Path to the image file')
+parser.add_argument('--buttons', required=True, help='JSON string representing the buttons')
+parser.add_argument('--message', required=True, help='Text message as a string')
+
+args = parser.parse_args()
 
 # Initialize the bot
-bot = telebot.TeleBot(TOKEN)
+bot = telebot.TeleBot(args.token)
 
 # Function to send a file with buttons and a message
-def send_file_with_buttons(channel_id, file_path, json_buttons_path, text_message_path):
-    # Read the buttons from the JSON file
-    with open(json_buttons_path, 'r') as f:
-        buttons_data = json.load(f)
+def send_file_with_buttons(channel_id, file_path, buttons_json, message):
+    buttons_data = json.loads(buttons_json)
     
-    # Create InlineKeyboardMarkup for buttons
     markup = telebot.types.InlineKeyboardMarkup(row_width=1)
     for button in buttons_data:
-        button_obj = telebot.types.InlineKeyboardButton(text=button['text'], callback_data=button['callback_data'])
+        button_obj = telebot.types.InlineKeyboardButton(
+            text=button['text'],
+            callback_data=button['callback_data']
+        )
         markup.add(button_obj)
-    
-    # Read the message from the text file
-    with open(text_message_path, 'r') as f:
-        message = f.read().strip()
 
-    # Send the file along with the buttons and message
     with open(file_path, 'rb') as file:
         bot.send_photo(
             chat_id=channel_id,
@@ -38,4 +36,4 @@ def send_file_with_buttons(channel_id, file_path, json_buttons_path, text_messag
         )
 
 # Call the function
-send_file_with_buttons(CHANNEL_ID, FILE_PATH, JSON_BUTTONS_PATH, TEXT_MESSAGE_PATH)
+send_file_with_buttons(args.channel_id, args.file_path, args.buttons, args.message)

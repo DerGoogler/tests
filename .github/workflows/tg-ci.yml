@@ -35,6 +35,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+            fetch-depth: 0
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
@@ -50,47 +55,36 @@ jobs:
             BUILD_TYPE_CASED=$(echo "${{ inputs.buildType }}" | sed 's/^\(.\)/\L\1/')
             echo "BUILD_TYPE_CASED=$BUILD_TYPE_CASED" >> $GITHUB_ENV
 
-            cat >buttons.json <<EOL
-            [
-                {
-                    "text": "View Run",
-                    "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-                }
-            ]
-            EOL
-
-            cat >message.txt <<EOL
-            ${{ inputs.title }}
-            #ci_${{ env.VERSION }}
-
-            Build on ${{ env.BUILD_DATE }}.
-                
-            ${{ inputs.message }}
-
-            Type: ${{ env.BUILD_TYPE_CASED }}
-            EOL
-
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-            fetch-depth: 0
-
-      - name: Get commit info and build timestamp
-        id: meta
-        run: |
             echo "${{ inputs.message }}" > test.txt
             BUILD_DATE=$(date +"%Y-%m-%d %H:%M:%S")
             VERSION=$(git rev-list --count HEAD)
             echo "VERSION=$VERSION" >> $GITHUB_ENV
             echo "BUILD_DATE=$BUILD_DATE" >> $GITHUB_ENV
 
+
+            echo """BUTTONS=\"\"\"[
+                {
+                    "text": "View Run",
+                    "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                }
+            ]\"\"\"""" >> $GITHUB_ENV
+
+            echo """MESSAGE=\"\"\"${{ inputs.title }}
+            #ci_$VERSION
+
+            Build on $BUILD_DATE.
+                
+            ${{ inputs.message }}
+
+            Type: $BUILD_TYPE_CASED
+            \"\"\"""" >> $GITHUB_ENV
+
       - name: Upload files to Telegram
         if: github.event.inputs.send_telegram == 'true'
         run: |
-            python3 scripts/telegram-ci.py
-        env:
-            BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-            CHANNEL_ID: '@kaklakaka'
-            FILE_PATH: test.txt
-            BUTTONS_PATH: buttons.json
-            MESSAGE_PATH: message.txt
+            python3 scripts/telegram-ci.py \
+              --token "${{ secrets.TELEGRAM_BOT_TOKEN }}" \
+              --channel_id @kaklakaka \
+              --file_path test.txt \
+              --buttons "$BUTTONS" \
+              --message "$MESSAGE"
