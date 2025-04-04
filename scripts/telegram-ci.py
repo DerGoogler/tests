@@ -1,6 +1,7 @@
 import telebot
 import json
 import argparse
+import re
 
 # Parse command-line arguments
 parser = argparse.ArgumentParser(description="Send a photo with inline buttons using Telegram bot.")
@@ -15,6 +16,10 @@ args = parser.parse_args()
 # Initialize the bot
 bot = telebot.TeleBot(args.token)
 
+def escape_markdown_v2(text):
+    escape_chars = r"_*[]()~`>#+-=|{}.!\\"
+    return re.sub(f"([{re.escape(escape_chars)}])", r"\\\1", text)
+
 # Function to send a file with buttons and a message
 def send_file_with_buttons(channel_id, file_path, buttons_json, message):
     buttons_data = json.loads(buttons_json)
@@ -27,12 +32,16 @@ def send_file_with_buttons(channel_id, file_path, buttons_json, message):
         )
         markup.add(button_obj)
 
+    message_v2 = escape_markdown_v2(message)
+
+
     with open(file_path, 'rb') as file:
         bot.send_document(
             chat_id=channel_id,
             document=file,
-            caption=message,
-            reply_markup=markup
+            caption=message_v2,
+            reply_markup=markup,
+            parse_mode='MarkdownV2'
         )
 
 # Call the function
