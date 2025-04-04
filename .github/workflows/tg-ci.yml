@@ -35,10 +35,40 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+            python -m pip install --upgrade pip
+            pip install telebot
+
       - name: Parse input
         run: |
             BUILD_TYPE_CASED=$(echo "${{ inputs.buildType }}" | sed 's/^\(.\)/\L\1/')
             echo "BUILD_TYPE_CASED=$BUILD_TYPE_CASED" >> $GITHUB_ENV
+
+            cat >buttons.json <<EOL
+            [
+                {
+                    "text": "View Run",
+                    "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                }
+            ]
+            EOL
+
+            cat >message.txt <<EOL
+            ${{ inputs.title }}
+            #ci_${{ env.VERSION }}
+
+            Build on ${{ env.BUILD_DATE }}.
+                
+            ${{ inputs.message }}
+
+            Type: ${{ env.BUILD_TYPE_CASED }}
+            EOL
 
       - name: Checkout
         uses: actions/checkout@v4
@@ -56,24 +86,7 @@ jobs:
 
       - name: Upload files to Telegram
         if: github.event.inputs.send_telegram == 'true'
-        uses: DerGoogler/TelegramFileUploader@v1.0.1
-        with:
-            to-who: '@kaklakaka'
-            message: |-
-                ${{ inputs.title }}
-                
-                ${{ inputs.message }}
-
-                Type: ${{ env.BUILD_TYPE_CASED }}
-                [Workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
-            files: test.txt
-            buttons: |
-                inline_keyboard:
-                  - - text: "Download APK"
-                      url: "https://google.com"
-                  - - text: "View Run"
-                      url: "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+        run: |
+            python3 scripts/telegram-ci.py
         env:
-            API_ID: ${{ secrets.API_ID }}
-            API_HASH: ${{ secrets.API_HASH }}
             BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
