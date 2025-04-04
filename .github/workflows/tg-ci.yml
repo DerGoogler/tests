@@ -58,7 +58,7 @@ jobs:
         if: github.event.inputs.send_telegram == 'true'
         uses: DerGoogler/TelegramFileUploader@v1.0.1
         with:
-            to-who: '@kaklakak'
+            to-who: '@kaklakaka'
             message: |-
                 ${{ inputs.title }}
                 
