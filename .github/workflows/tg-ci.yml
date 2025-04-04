@@ -90,3 +90,7 @@ jobs:
             python3 scripts/telegram-ci.py
         env:
             BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+            CHANNEL_ID: '@kaklakaka'
+            FILE_PATH: test.txt
+            BUTTONS_PATH: buttons.json
+            MESSAGE_PATH: message.txt

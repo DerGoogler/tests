@@ -6,8 +6,8 @@ import os
 TOKEN = os.getenv('BOT_TOKEN')
 CHANNEL_ID = os.getenv('CHANNEL_ID')
 FILE_PATH = os.getenv('FILE_PATH')
-JSON_BUTTONS_PATH = os.getenv('JSON_BUTTONS_PATH')
-TEXT_MESSAGE_PATH = os.getenv('TEXT_MESSAGE_PATH')
+JSON_BUTTONS_PATH = os.getenv('BUTTONS_PATH')
+TEXT_MESSAGE_PATH = os.getenv('MESSAGE_PATH')
 
 # Initialize the bot
 bot = telebot.TeleBot(TOKEN)
