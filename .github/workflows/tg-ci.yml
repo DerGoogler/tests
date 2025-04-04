@@ -56,7 +56,7 @@ jobs:
 
       - name: Upload files to Telegram
         if: github.event.inputs.send_telegram == 'true'
-        uses: xz-dev/TelegramFileUploader@v1.1.1
+        uses: DerGoogler/TelegramFileUploader@v1.0.0
         with:
             to-who: '@kaklakak'
             message: |-
@@ -70,6 +70,11 @@ jobs:
                 Type: ${{ env.BUILD_TYPE_CASED }}
                 [Workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
             files: test.txt
+            buttons: >-
+                {"inline_keyboard": [
+                  [{"text": "Download APK", "url": "https://google.com"}],
+                  [{"text": "View Run", "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"}]
+                ]}
         env:
             API_ID: ${{ secrets.API_ID }}
             API_HASH: ${{ secrets.API_HASH }}
