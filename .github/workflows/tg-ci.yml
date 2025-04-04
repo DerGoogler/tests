@@ -61,24 +61,6 @@ jobs:
             echo "VERSION=$VERSION" >> $GITHUB_ENV
             echo "BUILD_DATE=$BUILD_DATE" >> $GITHUB_ENV
 
-
-            echo """BUTTONS=\"\"\"[
-                {
-                    "text": "View Run",
-                    "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-                }
-            ]\"\"\"""" >> $GITHUB_ENV
-
-            echo """MESSAGE=\"\"\"${{ inputs.title }}
-            #ci_$VERSION
-
-            Build on $BUILD_DATE.
-                
-            ${{ inputs.message }}
-
-            Type: $BUILD_TYPE_CASED
-            \"\"\"""" >> $GITHUB_ENV
-
       - name: Upload files to Telegram
         if: github.event.inputs.send_telegram == 'true'
         run: |
@@ -86,5 +68,18 @@ jobs:
               --token "${{ secrets.TELEGRAM_BOT_TOKEN }}" \
               --channel_id @kaklakaka \
               --file_path test.txt \
-              --buttons "$BUTTONS" \
-              --message "$MESSAGE"
+              --buttons """[
+                {
+                    "text": "View Run",
+                    "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                }
+              ]""" \
+              --message """${{ inputs.title }}
+            #ci_$VERSION
+
+            Build on $BUILD_DATE.
+                
+            ${{ inputs.message }}
+
+            Type: $BUILD_TYPE_CASED
+            """
