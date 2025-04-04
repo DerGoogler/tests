@@ -23,7 +23,7 @@ def send_file_with_buttons(channel_id, file_path, buttons_json, message):
     for button in buttons_data:
         button_obj = telebot.types.InlineKeyboardButton(
             text=button['text'],
-            callback_data=button['callback_data']
+            url=button['url']
         )
         markup.add(button_obj)
 
